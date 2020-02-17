@@ -63,7 +63,7 @@ function App() {
   }
 
   const handleInputChange = (value) => {
-    if (value == pokemon.name) {
+    if (value.toLowerCase() == pokemon.name) {
       setInputValue(`Correcto! ${pokemon.name}`);
       setCorrectos(correctos+1);
       setXp(xp+1);
@@ -86,14 +86,15 @@ function App() {
         <PkmnSpiningImage filter={isShowing} img={imgUrl || logo} />
         <p>{inputValue}</p>
         <p>{correctos}<span>👍</span>  {incorrectos}<span>👎</span></p>
-        <p>Nivel {nivel}</p>
-        <InputSearchBar handleChange={handleInputChange} />
+        <p>Lvl {nivel}</p>
         <ProgressBar
           variant="success"
           className="xpBar"
           now={parseInt(((xp)/(nivel*2)*100),10)}
-          label={`${parseInt(((xp)/(nivel*2)*100),10)}%`}
+          label={`${xp} / ${nivel*2}`}
         />
+        <InputSearchBar handleChange={handleInputChange} />
+
       </header>
     </div>
   );
