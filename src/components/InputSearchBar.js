@@ -1,8 +1,8 @@
 import React, {useState}  from 'react';
 
-const InputSearchBar = ({handleChange}) => {
+const InputSearchBar = ({handleChange},{isLocked}) => {
   const handleKeyPress = (event) => {
-    if(event.key === 'Enter'){
+    if(event.key === 'Enter' && !isLocked){
        handleChange(event.target.value);
        event.target.value = "";
       }

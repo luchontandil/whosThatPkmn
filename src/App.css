@@ -89,10 +89,11 @@ p {
 } */
 
 .xpBar{
-  margin-bottom: 5px;
+  background-color: black;
+  margin-top: 5px;
   border: 1px solid black;
   width: 20vw;
-  height: 3vh;
+  height: 2vh;
 }
 
 #root{
@@ -103,4 +104,19 @@ p {
   background-position: center;
   width: 100vw;
   height: 100vh;
+}
+
+/* Phone screen */
+@media (max-width: 768px){
+  .App-header{
+        width: 100vw;
+  }
+  #root{
+    background-position: left;
+  }
+  .xpBar{
+    height: 5vh;
+    width: 45vw;
+  }
+
 }

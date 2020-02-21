@@ -22,11 +22,13 @@ function App() {
   const [xp, setXp] = useState(0);
   const [cantPkmns, setCantPkmns] = useState(50);
   const [isShowing, setIsShowing] = useState(true);
+  const [isLocked, setIsLocked] = useState(true);
 
 
   useEffect(()=>{
     function getPokemonGirando(numero) {
       setIsShowing(true);
+      console.log("Mostrando");
       fetch( `${apiPkmnURL}/${numero}`, {
         method: 'GET'
       }).then(res => {
@@ -35,6 +37,8 @@ function App() {
           setTimeout(()=>{
             setInputValue("");
             setIsShowing(false);
+            setIsLocked(false);
+            console.log("Ocultando");
             setPokemon(value)
             // console.log(value);
             // console.log(value.name);
@@ -63,16 +67,19 @@ function App() {
   }
 
   const handleInputChange = (value) => {
-    if (value.toLowerCase() == pokemon.name) {
-      setInputValue(`Correcto! ${pokemon.name}`);
-      setCorrectos(correctos+1);
-      setXp(xp+1);
-    }
-    else{
-      setInputValue(`Incorrecto ${pokemon.name}`);
-      setIncorrectos(incorrectos+1)
-    }
+    if(!isShowing){
+      if (value.toLowerCase() == pokemon.name) {
+        setInputValue(`Correcto! ${pokemon.name}`);
+        setCorrectos(correctos+1);
+        setXp(xp+1);
+      }
+      else{
+        setInputValue(`Incorrecto ${pokemon.name}`);
+        setIncorrectos(incorrectos+1)
+      }
     toggleAnother(!anotherOne);
+    }
+    setIsLocked(true);
   }
 
   // const handleSpinImgChange = (value) => {
@@ -87,14 +94,13 @@ function App() {
         <p>{inputValue}</p>
         <p>{correctos}<span>👍</span>  {incorrectos}<span>👎</span></p>
         <p>Lvl {nivel}</p>
+        <InputSearchBar handleChange={handleInputChange} isLocked={isLocked} />
         <ProgressBar
           variant="success"
           className="xpBar"
           now={parseInt(((xp)/(nivel*2)*100),10)}
           label={`${xp} / ${nivel*2}`}
         />
-        <InputSearchBar handleChange={handleInputChange} />
-
       </header>
     </div>
   );
